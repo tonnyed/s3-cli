@@ -1,13 +1,8 @@
-
-
-
-
-
-
 #invoking instance
 
 def main():
     import os
+    import sys
     # from s3_upload import s3_upload
     # from s3_cli_upload import s3_cli_upload
     from s3_cli import s3_cli_upload
@@ -30,8 +25,6 @@ def main():
         (file_name, bucket_name, object_name)
     except NameError:
         print("The required arguments is not defined")
-    else:
-        print("")
 
 #using os walk to traverse and use control flow to check for file type
 
@@ -41,14 +34,17 @@ def main():
            for root, dirs, files in os.walk(file_name,topdown=False):
                for names in files:
                 local_path = os.path.join(root, names)
-                s3_upload.s3_upload(local_path ,bucket_name ,object_name, True)
+                s3_upload.s3_upload(local_path ,bucket_name ,object_name, dir=True)
         elif os.path.isfile(file_name):
             s3_upload.s3_upload(file_name,bucket_name,object_name)
         else:
            print("file is not a file or directory")
+           sys.exit(1)
+
 
     else:
         print("s3 argument needs to be Specified")
+        sys.exit(1)
 
 
 

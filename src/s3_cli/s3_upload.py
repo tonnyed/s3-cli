@@ -31,28 +31,17 @@ class ProgressPercentage(object):
 
 
 #This function uses boto3 s3 resource with upload methods
-def s3_upload(file_name, bucket_name, object_name="none", dir=True):
+def s3_upload(file_name, bucket_name, object_name="none", dir=False):
     s3 = boto3.client('s3')
     object_name = object_name
     object_date = datetime.datetime.now()
     object_date =object_date.strftime("%d-%m-%Y-%H-%M-%S")
 
-
-    if object_name == "none" and dir == False:
-        object_name = file_name+"-"+object_date
-
-    elif object_name == "none" and dir == True:
+    if object_name == "none":
         object_name = file_name
-        object_name = str(Path(object_name+"-"+object_date))
 
-    elif dir == True and object_name != "none":
+    elif dir == True:
         object_name = file_name
-        object_name = str(Path(object_name+"-"+object_date))
-        print("using directory name as object name!")
-
-    else:
-        object_name = Path(object_name)
-        object_name = str(object_name)
 
 
     try:

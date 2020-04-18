@@ -9,7 +9,7 @@ setup(
     install_requires=['boto3'],
     entry_points={
         'console_scripts': [
-            'devbot=s3_cli.s3_main:main',
+            'teo=s3_cli.s3_main:main',
         ],
     },
     packages=find_packages('src'),
